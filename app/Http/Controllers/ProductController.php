@@ -14,6 +14,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->keyword;
+        $created_at =$request->created_at;
 
         if ($request->category !== null) {
             $products = Product::where('category_id', $request->category)->sortable()->paginate(15);
@@ -32,7 +33,7 @@ class ProductController extends Controller
         $categories = Category::all();
         $major_category_names = Category::pluck('major_category_name')->unique();
 
-        return view('products.index', compact('products', 'category', 'categories', 'major_category_names', 'total_count', 'keyword'));
+        return view('products.index', compact('products', 'category', 'created_at', 'categories', 'major_category_names', 'total_count', 'keyword'));
     }
 
     /**
